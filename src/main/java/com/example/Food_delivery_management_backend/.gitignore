@@ -1,0 +1,32 @@
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+target/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Application config (sensitive data)
+application-local.properties
+application-prod.properties
+.env
+
+# Maven
+.mvn/

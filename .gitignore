@@ -1,0 +1,64 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Uploads ###
+uploads/*
+!uploads/.gitkeep
+
+### Environment variables ###
+.env
+.env.local
+
+### Node ###
+node_modules/
+frontend/dist/
+src/main/resources/static/
+
+### Angular widget (rimosso) ###
+angular-widget/
+.env.*
+!.env.example
+.env.*
+
+### Docs non necessari ###
+*.docx
+
+### Frontend build ###
+frontend/dist/
+src/main/resources/static/
+
+### Angular widget ###
+angular-widget/node_modules/
+angular-widget/.angular/
+angular-widget/dist/
