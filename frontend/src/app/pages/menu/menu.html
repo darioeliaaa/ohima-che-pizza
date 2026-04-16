@@ -1,0 +1,19 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>IL NOSTRO <span class="text-orange">MENÙ</span></h1>
+    <p>Scegli la tua preferita. Dal forno a legna, direttamente al tuo tavolo.</p>
+  </div>
+
+  <div *ngIf="loading" class="loader">Scaldando il forno...</div>
+
+  <div class="menu-grid" *ngIf="!loading">
+    <div class="pizza-card" *ngFor="let pizza of pizzas">
+      <div class="card-header">
+        <h3>{{ pizza.name }}</h3>
+        <span class="price">€{{ pizza.price | number:'1.2-2' }}</span>
+      </div>
+      <p class="description">{{ pizza.description }}</p>
+      <div class="category-badge">{{ pizza.categoryName }}</div>
+    </div>
+  </div>
+</div>

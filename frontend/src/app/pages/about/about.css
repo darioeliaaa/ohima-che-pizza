@@ -1,0 +1,111 @@
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px; /* Spazio generoso tra le sezioni */
+}
+
+/* --- STILE SEZIONI ALTERNATE --- */
+.about-section {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.section-reverse {
+  flex-direction: row-reverse;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h2 {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 25px;
+  font-family: 'Bungee', sans-serif;
+}
+
+.about-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ohima-dark);
+}
+
+/* --- BOX IMMAGINI CON OMBRE POP --- */
+.about-image-box {
+  flex: 1;
+  height: 400px;
+  background-color: var(--ohima-beige);
+  border: 5px solid var(--ohima-dark);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bungee', sans-serif;
+  color: var(--ohima-dark);
+}
+
+.shadow-green { box-shadow: 15px 15px 0px var(--ohima-green); }
+.shadow-red { box-shadow: -15px 15px 0px var(--ohima-red); }
+
+/* --- SEZIONE MAPPA --- */
+.location-card {
+  background: white;
+  border: 5px solid var(--ohima-dark);
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 20px 20px 0px var(--ohima-orange);
+  text-align: center;
+}
+
+.location-card h2 {
+  font-size: 3rem;
+  margin-bottom: 40px;
+}
+
+.location-grid {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+  gap: 30px;
+}
+
+.info-item h3 {
+  font-family: 'Bungee', sans-serif;
+  font-size: 1.5rem;
+  color: var(--ohima-red);
+  margin-bottom: 10px;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 350px;
+  background-color: #eee;
+  border: 4px dashed var(--ohima-dark);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* --- RESPONSIVE PER CELLULARE --- */
+@media (max-width: 768px) {
+  .about-section, .section-reverse {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  .about-image-box {
+    width: 100%;
+    height: 250px;
+    box-shadow: 10px 10px 0px var(--ohima-dark);
+  }
+  .location-grid {
+    flex-direction: column;
+  }
+}

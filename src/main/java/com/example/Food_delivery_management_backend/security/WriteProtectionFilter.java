@@ -115,8 +115,7 @@ public class WriteProtectionFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean isPublicWrite(String path) {
-        return path.equals("/api/restaurants/register");
+    private boolean isPublicWrite(String path) {return path.equals("/api/restaurants/register") || path.startsWith("/api/bookings/");
     }
 
     private boolean isOperationalWrite(String path, String method) {
@@ -142,4 +141,5 @@ public class WriteProtectionFilter extends OncePerRequestFilter {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
+
 }

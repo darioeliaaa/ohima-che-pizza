@@ -1,0 +1,26 @@
+<section class="menu-container">
+  <div class="menu-header">
+    <h2 class="font-pop">Il Nostro Menù</h2>
+    <p class="subtitle">Dall'impasto alla brace, solo ingredienti selezionati.</p>
+  </div>
+
+  <div *ngIf="loading" class="loader">Sfornando il menù...</div>
+
+  <div class="menu-grid" *ngIf="!loading">
+    <div class="pizza-card" *ngFor="let pizza of pizzas">
+      <div class="pizza-info">
+        <div class="pizza-name-price">
+          <h3>{{ pizza.name }}</h3>
+          <span class="dots"></span>
+          <span class="price">€{{ pizza.price.toFixed(2) }}</span>
+        </div>
+        <p class="description">{{ pizza.description }}</p>
+        <span class="category-tag">{{ pizza.categoryName || 'Pizze' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && pizzas.length === 0" class="empty-state">
+    <p>Il forno è ancora spento. Torna tra poco!</p>
+  </div>
+</section>

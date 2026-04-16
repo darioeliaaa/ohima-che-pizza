@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;700;800&display=swap');
+
+:root {
+  --ohima-red: #E31D2B;
+  --ohima-beige: #F8F5EE;
+  --ohima-green: rgb(74, 103, 65);
+  --ohima-orange: #F5A623;
+  --ohima-dark: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--ohima-beige);
+  color: var(--ohima-dark);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-pop {
+  font-family: 'Bungee', sans-serif;
+  color: var(--ohima-red);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Stile Bottoni "Pop-Art" */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 4px solid var(--ohima-dark);
+  transition: all 0.2s;
+  font-size: 1.1rem;
+  font-family: 'Bungee', sans-serif;
+  box-shadow: 4px 4px 0px var(--ohima-dark);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--ohima-red);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--ohima-dark);
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--ohima-dark);
+}
+
+.btn-outline {
+  background: white;
+  color: var(--ohima-dark);
+}
+
+.btn-outline:hover {
+  background: var(--ohima-beige);
+}

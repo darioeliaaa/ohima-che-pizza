@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="logo-link">
+      <img src="/logo.jpg" alt="Ohimà Logo" class="nav-logo">
+    </a>
+
+    <div class="nav-links">
+      <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">HOME</a>
+      <a routerLink="/menu" routerLinkActive="active-link">IL MENÙ</a>
+      <a routerLink="/chi-siamo" routerLinkActive="active-link">CHI SIAMO</a>
+      <a routerLink="/prenota" class="btn btn-primary">PRENOTA</a>
+    </div>
+  </div>
+</nav>

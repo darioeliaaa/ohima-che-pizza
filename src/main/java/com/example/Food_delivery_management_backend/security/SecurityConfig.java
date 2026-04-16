@@ -38,7 +38,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @org.springframework.beans.factory.annotation.Value("${cors.allowed-origins:http://localhost:5173,http://localhost:8080}")
+    @org.springframework.beans.factory.annotation.Value("${cors.allowed-origins:http://localhost:5173,http://localhost:8080,http://localhost:4200 }")
     private String allowedOrigins;
 
     @Bean
@@ -85,6 +85,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/menu-items/restaurant/**").permitAll()
                         .requestMatchers("/api/menu-categories/restaurant/**").permitAll()
                         .requestMatchers("/api/menu-sections/restaurant/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/bookings/restaurant/**").permitAll()
 
                         // Prodotti (pubblico per lettura)
                         .requestMatchers("/api/products/restaurant/**").permitAll()

@@ -1,0 +1,38 @@
+.navbar {
+  background-color: white;
+  border-bottom: 5px solid var(--ohima-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav-logo { height: 80px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-family: 'Bungee', sans-serif;
+  color: var(--ohima-green);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+/* Aggiungi questo in fondo al CSS della navbar che hai già */
+.nav-links a.active-link {
+  color: var(--ohima-red);
+  border-bottom: 3px solid var(--ohima-red);
+  padding-bottom: 5px;
+}
+.logo-link { cursor: pointer; }
