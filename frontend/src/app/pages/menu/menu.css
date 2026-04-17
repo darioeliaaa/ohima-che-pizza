@@ -59,3 +59,23 @@
   font-weight: 800;
   text-transform: uppercase;
 }
+
+/* ========================================= */
+/* RESPONSIVE MOBILE - MENU         */
+/* ========================================= */
+@media (max-width: 768px) {
+  .menu-grid {
+    /* Forza 1 sola colonna centrale per le pizze */
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .menu-item-card {
+    padding: 20px;
+  }
+
+  .pizza-price {
+    font-size: 1.3rem; /* Prezzo leggermente rimpicciolito */
+  }
+}

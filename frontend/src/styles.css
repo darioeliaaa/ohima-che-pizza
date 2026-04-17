@@ -62,3 +62,12 @@ h1, h2, h3, .font-pop {
 .btn-outline:hover {
   background: var(--ohima-beige);
 }
+/* IMPEDISCE ALLA PAGINA DI SBORDARE A DESTRA E SINISTRA */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}

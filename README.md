@@ -159,7 +159,7 @@ JWT_SECRET,Stringa segreta per la firma dei token (min 32 char)
 JWT_EXPIRATION,Durata della sessione admin
 
 API Endpoints
-Pubblici
+Pubblicipt
 
 GET /api/menu-items/restaurant/1 — Recupera il menù completo.
 

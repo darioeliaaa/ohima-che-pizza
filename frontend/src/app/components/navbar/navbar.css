@@ -4,6 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+
 }
 
 .nav-container {
@@ -36,3 +37,118 @@
   padding-bottom: 5px;
 }
 .logo-link { cursor: pointer; }
+
+/* ========================================= */
+/* HAMBURGER BTN (Nascosto su PC)            */
+/* ========================================= */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 100; /* Lo tiene sempre in primissimo piano */
+}
+
+.hamburger-btn .bar {
+  width: 35px;
+  height: 5px;
+  background-color: var(--ohima-dark);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* ========================================= */
+/* RESPONSIVE MOBILE - IL NUOVO MENÙ         */
+/* ========================================= */
+@media (max-width: 768px) {
+  .nav-container {
+    /* Mantiene logo e hamburger sulla stessa linea */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative; /* Importante per far scendere la tendina da qui */
+  }
+
+  /* Mostra il bottone hamburger */
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .nav-logo {
+    height: 45px; /* Logo proporzionato */
+  }
+
+  /* La tendina dei link */
+  .nav-links {
+    position: absolute;
+    top: 70px; /* Parte da sotto la barra */
+    left: 0;
+    width: 100%;
+    background-color: var(--ohima-beige);
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    border-bottom: 5px solid var(--ohima-dark);
+    box-shadow: 0px 15px 0px rgba(0,0,0,0.1);
+
+    /* Il trucco: la spostiamo in alto fuori dallo schermo e la rendiamo invisibile */
+    transform: translateY(-200%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    z-index: 90;
+  }
+
+  /* Quando clicchi e Angular aggiunge la classe .mobile-open */
+  .nav-links.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Stile dei bottoni dentro la tendina (Con bordino Pop-Art) */
+  .nav-links a {
+    text-align: center;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--ohima-dark);
+    background-color: white;
+    border: 3px solid var(--ohima-dark);
+    border-radius: 8px;
+    /* IL MAGICO BORDINO NERO */
+    box-shadow: 4px 4px 0px var(--ohima-dark);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+
+  /* Effetto "Schiacciamento" quando premi col dito */
+  .nav-links a:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px var(--ohima-dark);
+  }
+
+  /* Il tasto prenota risalta di più */
+  .prenota-btn {
+    background-color: var(--ohima-red) !important;
+    color: white !important;
+    border-width: 3px !important;
+    /* Anche lui si prende l'ombra, ovviamente! */
+    box-shadow: 4px 4px 0px var(--ohima-dark) !important;
+  }
+
+  /* Animazione fighissima: le 3 lineette diventano una X */
+  .hamburger-btn.open .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+  }
+  .hamburger-btn.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-btn.open .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+  }
+}
