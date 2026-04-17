@@ -1,19 +1,29 @@
 <div class="page-container">
   <div class="page-header">
     <h1>IL NOSTRO <span class="text-orange">MENÙ</span></h1>
-    <p>Scegli la tua preferita. Dal forno a legna, direttamente al tuo tavolo.</p>
+    <p>Scegli la tua sezione preferita e goditi il gusto.</p>
+  </div>
+
+  <div class="category-nav" *ngIf="!loading">
+    <button
+      *ngFor="let cat of categories"
+      (click)="filterByCategory(cat)"
+      [class.active]="selectedCategory === cat"
+      class="nav-btn">
+      {{ cat }}
+    </button>
   </div>
 
   <div *ngIf="loading" class="loader">Scaldando il forno...</div>
 
   <div class="menu-grid" *ngIf="!loading">
-    <div class="pizza-card" *ngFor="let pizza of pizzas">
+    <div class="pizza-card" *ngFor="let pizza of filteredPizzas">
       <div class="card-header">
-        <h3>{{ pizza.name }}</h3>
+        <h3>{{ pizza.item_name }}</h3>
         <span class="price">€{{ pizza.price | number:'1.2-2' }}</span>
       </div>
       <p class="description">{{ pizza.description }}</p>
-      <div class="category-badge">{{ pizza.categoryName }}</div>
+      <div class="category-badge">{{ pizza.category }}</div>
     </div>
   </div>
 </div>

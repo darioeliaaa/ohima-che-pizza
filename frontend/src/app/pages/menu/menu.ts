@@ -10,15 +10,26 @@ import { RestaurantService } from '../../services/restaurant';
   styleUrl: './menu.css'
 })
 export class MenuComponent implements OnInit {
-  pizzas: any[] = [];
+  allPizzas: any[] = [];
+  filteredPizzas: any[] = [];
+  categories: string[] = [];
+  selectedCategory: string = 'TUTTO';
   loading = true;
 
   constructor(private restaurantService: RestaurantService) {}
 
   ngOnInit() {
+    // Usiamo l'ID 1 del tuo ristorante
     this.restaurantService.getMenu(1).subscribe({
       next: (data) => {
-        this.pizzas = data;
+        this.allPizzas = data;
+        this.filteredPizzas = data;
+
+        // Estraiamo le categorie uniche dalla colonna 'category' del tuo DB
+        const uniqueCats = [...new Set(data.map((item: any) => item.category))];
+        // Puliamo da eventuali null e aggiungiamo TUTTO
+        this.categories = ['TUTTO', ...uniqueCats.filter(c => c) as string[]];
+
         this.loading = false;
       },
       error: (err) => {
@@ -26,5 +37,15 @@ export class MenuComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  filterByCategory(cat: string) {
+    this.selectedCategory = cat;
+    if (cat === 'TUTTO') {
+      this.filteredPizzas = this.allPizzas;
+    } else {
+      // Filtriamo sulla proprietà 'category' (es: 'PIZZE')
+      this.filteredPizzas = this.allPizzas.filter(item => item.category === cat);
+    }
   }
 }
