@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class RestaurantService {
   // L'URL è /api perché abbiamo il proxy configurato nel file proxy.conf.json
-  private apiUrl = '/api';
+  private apiUrl = 'https://ohima-che-pizza.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

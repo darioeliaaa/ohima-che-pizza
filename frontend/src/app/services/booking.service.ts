@@ -17,7 +17,7 @@ export interface Booking {
 })
 export class BookingService {
   // L'URL base del tuo backend Spring Boot
-  private baseUrl = 'http://localhost:8080/api/bookings';
+  private baseUrl = 'https://ohima-che-pizza.onrender.com/api/bookings';
 
   constructor(private http: HttpClient) {}
 
