@@ -46,7 +46,8 @@ public class SecurityConfig {
                 "http://localhost:5173",
                 "http://localhost:4200",
                 "http://localhost:8080",
-                "https://ohima-che-pizza.vercel.app"
+                "https://ohima-che-pizza.vercel.app",
+                "https://*.vercel.app"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
@@ -79,7 +80,8 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-                        // public endpoints (no authentication required)
+
+                        .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest).permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/restaurants/register").permitAll()
                         .requestMatchers("/api/restaurants/search").permitAll()
