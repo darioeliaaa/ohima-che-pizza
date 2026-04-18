@@ -38,7 +38,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @org.springframework.beans.factory.annotation.Value("${cors.allowed-origins:http://localhost:5173,http://localhost:8080,http://localhost:4200 }")
+    @org.springframework.beans.factory.annotation.Value("${cors.allowed-origins:http://localhost:5173,http://localhost:8080,http://localhost:4200,https://ohima-che-pizza.vercel.app}")
     private String allowedOrigins;
 
     @Bean
