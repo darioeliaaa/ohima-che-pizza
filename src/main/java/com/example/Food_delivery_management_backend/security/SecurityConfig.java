@@ -41,8 +41,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // LISTA HARDCODED: Nessuna variabile esterna può sovrascrivere questo!
-        configuration.setAllowedOrigins(Arrays.asList(
+        // 🟢 NOTA: Usiamo setAllowedOriginPatterns per permettere l'uso dell'asterisco *
+        configuration.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:5173",
                 "http://localhost:4200",
                 "http://localhost:8080",
@@ -51,7 +51,7 @@ public class SecurityConfig {
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept"));
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Accettiamo tutti gli header per non sbagliare
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
@@ -65,60 +65,21 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
-
-                // ── HTTP Security Headers per produzione ──
-                .headers(headers -> headers
-                        .contentTypeOptions(contentType -> {})
-                        .frameOptions(frame -> frame.deny())
-                        .httpStrictTransportSecurity(hsts -> hsts
-                                .includeSubDomains(true)
-                                .maxAgeInSeconds(31536000))
-                        .referrerPolicy(referrer -> referrer
-                                .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
-                        .permissionsPolicy(permissions -> permissions
-                                .policy("camera=(), microphone=(), geolocation=()"))
-                )
-
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-
+                        // Permettiamo i pre-flight di CORS
                         .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest).permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers("/api/restaurants/register").permitAll()
-                        .requestMatchers("/api/restaurants/search").permitAll()
-                        .requestMatchers("/api/restaurants", "/api/restaurants/").permitAll()
-                        .requestMatchers("/api/restaurants/{id}").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/restaurants/{id}/contacts").permitAll()
-                        .requestMatchers("/api/menu-items/restaurant/**").permitAll()
-                        .requestMatchers("/api/menu-categories/restaurant/**").permitAll()
-                        .requestMatchers("/api/menu-sections/restaurant/**").permitAll()
+
+                        // Tutti gli endpoint sotto /api/ sono aperti per la lettura (GET)
+                        // Questo assicura che il menù sia sempre visibile
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").permitAll()
+
+                        // Endpoint specifici che devono essere aperti anche in POST (registrazione e login)
+                        .requestMatchers("/api/auth/login", "/api/restaurants/register").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/bookings/restaurant/**").permitAll()
 
-                        // Prodotti (pubblico per lettura)
-                        .requestMatchers("/api/products/restaurant/**").permitAll()
-                        .requestMatchers("/api/product-categories/restaurant/**").permitAll()
-
-                        // Chi Siamo (pubblico per lettura)
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/about/**").permitAll()
-
-                        // Promozioni (pubblico per lettura)
-                        .requestMatchers("/api/promotions/active/**").permitAll()
-
-                        // Feature flags (pubblico per lettura)
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/restaurants/{id}/features").permitAll()
-
-                        // File uploads (GET pubblico per immagini)
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/uploads/**").permitAll()
-
-                        // Orari e chiusure (pubblico per lettura)
-                        .requestMatchers("/api/schedule/hours/**").permitAll()
-                        .requestMatchers("/api/schedule/closing-days/**").permitAll()
-                        .requestMatchers("/api/schedule/check/**").permitAll()
-
-                        // all other endpoints require authentication (ADMIN)
+                        // Tutto il resto richiede autenticazione
                         .anyRequest().authenticated()
-                )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(writeProtectionFilter, JwtAuthenticationFilter.class);
