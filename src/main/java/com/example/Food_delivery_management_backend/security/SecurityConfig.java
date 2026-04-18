@@ -1,8 +1,10 @@
 package com.example.Food_delivery_management_backend.security;
 
 import com.example.Food_delivery_management_backend.security.jwt.JwtAuthenticationFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,10 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -37,49 +37,69 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // 💣 IL FILTRO ASSOLUTO: Questo viene eseguito PRIMA del JwtAuthenticationFilter
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        // 🟢 NOTA: Usiamo setAllowedOriginPatterns per permettere l'uso dell'asterisco *
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:4200",
-                "http://localhost:8080",
-                "https://ohima-che-pizza.vercel.app",
-                "https://*.vercel.app"
-        ));
-
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*")); // Accettiamo tutti gli header per non sbagliare
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
-
+    public FilterRegistrationBean<CorsFilter> customCorsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("https://*.vercel.app");
+        config.addAllowedOrigin("https://ohima-che-pizza.vercel.app");
+        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://localhost:8080");
+
+        // Accettiamo qualsiasi header e metodo per stroncare il problema alla radice
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        source.registerCorsConfiguration("/**", config);
+
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        // HIGHEST_PRECEDENCE costringe Spring a valutare i CORS prima della sicurezza JWT
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // Disabilitiamo il CORS interno di Spring perché ora se ne occupa il Filtro Assoluto sopra
+                .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // ── HTTP Security Headers per produzione ──
+                .headers(headers -> headers
+                        .contentTypeOptions(contentType -> {})
+                        .frameOptions(frame -> frame.deny())
+                        .httpStrictTransportSecurity(hsts -> hsts
+                                .includeSubDomains(true)
+                                .maxAgeInSeconds(31536000))
+                        .referrerPolicy(referrer -> referrer
+                                .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+                        .permissionsPolicy(permissions -> permissions
+                                .policy("camera=(), microphone=(), geolocation=()"))
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        // Permettiamo i pre-flight di CORS
+                        // La richiesta OPTIONS ormai è già stata gestita dal customCorsFilter,
+                        // ma per sicurezza la lasciamo passare anche qui
                         .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest).permitAll()
 
-                        // Tutti gli endpoint sotto /api/ sono aperti per la lettura (GET)
-                        // Questo assicura che il menù sia sempre visibile
+                        // Tutte le GET (letture) pubbliche
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").permitAll()
 
-                        // Endpoint specifici che devono essere aperti anche in POST (registrazione e login)
-                        .requestMatchers("/api/auth/login", "/api/restaurants/register").permitAll()
+                        // Endpoint specifici pubblici
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/restaurants/register").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/bookings/restaurant/**").permitAll()
 
-                        // Tutto il resto richiede autenticazione
+                        // Tutto il resto chiuso (ADMIN)
                         .anyRequest().authenticated()
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(writeProtectionFilter, JwtAuthenticationFilter.class);
