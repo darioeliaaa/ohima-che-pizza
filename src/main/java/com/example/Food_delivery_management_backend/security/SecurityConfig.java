@@ -37,27 +37,25 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // 💣 IL FILTRO ASSOLUTO: Questo viene eseguito PRIMA del JwtAuthenticationFilter
+    // 💣 IL VERO E UNICO GOD-MODE (A prova di Safari)
     @Bean
     public FilterRegistrationBean<CorsFilter> customCorsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("https://*.vercel.app");
-        config.addAllowedOrigin("https://ohima-che-pizza.vercel.app");
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("http://localhost:4200");
-        config.addAllowedOrigin("http://localhost:8080");
+        // 1. SPEGNIAMO I CREDENTIALS (Questo sblocca Safari)
+        config.setAllowCredentials(false);
 
-        // Accettiamo qualsiasi header e metodo per stroncare il problema alla radice
+        // 2. ORA POSSIAMO USARE L'ASTERISCO UNIVERSALE
+        config.addAllowedOrigin("*");
+
+        // 3. ACCETTIAMO TUTTO
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
         source.registerCorsConfiguration("/**", config);
 
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-        // HIGHEST_PRECEDENCE costringe Spring a valutare i CORS prima della sicurezza JWT
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
     }
