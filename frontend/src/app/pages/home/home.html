@@ -12,32 +12,47 @@
     </div>
 
     <div class="hero-image-placeholder">
-      <p>[ SPAZIO PER LA TUA FOTO ]</p>
+      <img src="/efad6191-a9b6-413f-962a-53779c95864c.JPG" class="about-img">
     </div>
   </header>
 
+
+  <!-- SEZIONE RECENSIONI -->
   <section class="reviews-section">
-    <h2>DICONO DI <span class="text-orange">NOI</span></h2>
-    <div class="reviews-grid">
+    <div class="reviews-container">
+      <h2 class="text-red">DICONO DI NOI</h2>
+      <p class="subtitle">Non credere a noi, credi a chi ci ha già provato!</p>
 
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p>"La miglior pizza della costa! Il cornicione è una nuvola e gli ingredienti sono top."</p>
-        <span class="reviewer">- Mario R.</span>
+      <div class="reviews-grid">
+        <!-- Recensione 1 -->
+        <div class="review-card shadow-green">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"La vera pizza, ma con un tocco spettacolare. Impasto leggerissimo, si scioglie in bocca e si digerisce in un attimo!"</p>
+          <p class="review-author">- Marco R.</p>
+        </div>
+
+        <!-- Recensione 2 -->
+        <div class="review-card shadow-orange">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Atmosfera fantastica e ingredienti che parlano davvero calabrese. Il personale è gentilissimo. Tappa fissa nel weekend!"</p>
+          <p class="review-author">- Giulia S.</p>
+        </div>
+
+        <!-- Recensione 3 -->
+        <div class="review-card shadow-red">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Forse la migliore pizza della zona. La cottura nel forno tradizionale fa la differenza. Assolutamente da provare."</p>
+          <p class="review-author">- Antonio C.</p>
+        </div>
       </div>
 
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p>"Locale bellissimo e pizza 'Valentino' clamorosa. Consigliatissimo."</p>
-        <span class="reviewer">- Sara L.</span>
+      <!-- Bottone Link a Google Maps -->
+      <div class="reviews-action">
+        <!-- NOTA: Sostituisci il link '#INSERISCI_QUI_IL_TUO_LINK_GOOGLE' con il link effettivo della tua scheda Google My Business -->
+        <a href="#INSERISCI_QUI_IL_TUO_LINK_GOOGLE" target="_blank" rel="noopener noreferrer" class="btn-google-reviews">
+          <span class="btn-icon">G</span> Leggi tutte le recensioni su Google
+        </a>
       </div>
-
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p>"Personale fantastico e impasto digeribilissimo. Torneremo sicuramente!"</p>
-        <span class="reviewer">- Giuseppe C.</span>
-      </div>
-
     </div>
   </section>
 
@@ -47,14 +62,18 @@
       <p>Rimani aggiornato sulle nostre nuove pizze e serate speciali!</p>
 
       <div class="social-links">
-        <a href="#" target="_blank" class="social-btn instagram">
+        <a href="https://www.instagram.com/ohima_che_pizza/" target="_blank" class="social-btn instagram">
           📷 INSTAGRAM
         </a>
-        <a href="#" target="_blank" class="social-btn facebook">
+        <a href="https://www.facebook.com/p/Ohimá-che-pizza-100086960983644/?locale=it_IT" target="_blank" class="social-btn facebook">
           👍 FACEBOOK
         </a>
       </div>
     </div>
+    <div class="legal-links">
+      <a routerLink="/privacy" class="privacy-link">Privacy & Cookie Policy</a>
+    </div>
   </footer>
+
 
 </div>

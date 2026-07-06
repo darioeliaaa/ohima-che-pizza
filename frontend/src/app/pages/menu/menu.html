@@ -19,11 +19,44 @@
   <div class="menu-grid" *ngIf="!loading">
     <div class="pizza-card" *ngFor="let pizza of filteredPizzas">
       <div class="card-header">
-        <h3>{{ pizza.item_name }}</h3>
+        <h3>{{ pizza.itemName }}</h3>
         <span class="price">€{{ pizza.price | number:'1.2-2' }}</span>
       </div>
       <p class="description">{{ pizza.description }}</p>
       <div class="category-badge">{{ pizza.category }}</div>
+    </div>
+  </div>
+  <!-- SEZIONE AGGIUNTE (Da mettere sotto la griglia del menù) -->
+  <div class="extras-section" *ngIf="!loading">
+    <div class="extras-card">
+      <h3 class="text-red">AGGIUNTE E VARIAZIONI</h3>
+
+      <ul class="extras-list">
+        <li>
+          <span class="extra-name">Bufala</span>
+          <span class="extra-price">+ € 2,50</span>
+        </li>
+        <li>
+          <span class="extra-name">Stracciatella</span>
+          <span class="extra-price">+ € 2,50</span>
+        </li>
+        <li>
+          <span class="extra-name">Burrata</span>
+          <span class="extra-price">+ € 2,50</span>
+        </li>
+        <li>
+          <span class="extra-name">Aggiunta verdura</span>
+          <span class="extra-price">+ € 2,00</span>
+        </li>
+        <li>
+          <span class="extra-name">Altre salse (ogni porzione)</span>
+          <span class="extra-price">+ € 0,20</span>
+        </li>
+      </ul>
+
+      <div class="coperto-banner">
+        <p>coperto: <strong>€ 1,50</strong></p>
+      </div>
     </div>
   </div>
 </div>

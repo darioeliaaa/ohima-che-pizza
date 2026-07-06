@@ -143,3 +143,72 @@
     box-shadow: 3px 3px 0px var(--ohima-dark);
   }
 }
+/* --- SEZIONE AGGIUNTE E INFO --- */
+.extras-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  padding: 0 20px;
+}
+
+.extras-card {
+  background-color: var(--ohima-beige, #f9f5f0); /* Usa il colore di sfondo delle tue card */
+  border: 4px solid var(--ohima-dark, #111);
+  border-radius: 15px;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 8px 8px 0px var(--ohima-orange, #ff9800); /* Ombra in stile pop */
+  text-align: center;
+}
+
+.extras-card h3 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-family: 'Bungee', sans-serif; /* Assicurati che usi il font dei tuoi titoli */
+}
+
+.extras-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.extras-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 2px dashed #ccc;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--ohima-dark, #333);
+}
+
+.extras-list li:last-child {
+  border-bottom: none;
+}
+
+.extra-price {
+  color: var(--ohima-green, #4a6741);
+  font-family: 'Bungee', sans-serif;
+}
+
+.coperto-banner {
+  margin-top: 25px;
+  background-color: var(--ohima-dark, #111);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+.coperto-banner p {
+  margin: 0;
+}
+
+.coperto-banner strong {
+  color: var(--ohima-red, rgb(255, 3, 3));
+  font-family: 'Bungee', sans-serif;
+}

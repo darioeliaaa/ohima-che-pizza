@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;700;800&display=swap');
 
 :root {
-  --ohima-red: #E31D2B;
+  --ohima-red: rgb(213, 19, 19);
   --ohima-beige: #F8F5EE;
   --ohima-green: rgb(74, 103, 65);
   --ohima-orange: #F5A623;

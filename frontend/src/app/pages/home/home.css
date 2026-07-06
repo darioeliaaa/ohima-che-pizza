@@ -221,3 +221,69 @@
     padding: 0 10px;
   }
 }
+/* Stile per far adattare l'immagine al contenitore */
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Taglia l'immagine in eccesso mantenendo le proporzioni */
+  display: block;
+  border-radius: 8px; /* Opzionale: aggiunge un leggero arrotondamento ai bordi */
+}
+
+/* Assicurati che il contenitore gestisca bene l'immagine interna */
+.about-image-box {
+  overflow: hidden; /* Nasconde eventuali parti di immagine che escono dal bordo */
+  /* Mantieni qui le altre regole che avevi già (es. ombre, padding) */
+}
+.btn-google-reviews {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  color: rgba(98, 143, 62, 0.43); /* Blu tipico di Google */
+  border: 2px solid #4a6741;
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(98, 143, 62, 0.43);
+}
+
+.btn-icon {
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.btn-google-reviews:hover {
+  background-color: #4a6741;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+/* --- CONTENITORE BOTTONE GOOGLE --- */
+.reviews-action {
+  margin-top: 50px; /* Aggiunge spazio sopra il bottone */
+  text-align: center; /* Si assicura che il bottone sia centrato */
+  width: 100%;
+}
+
+/* --- LINK LEGALI (Privacy) --- */
+.legal-links {
+  margin-top: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+}
+
+.privacy-link {
+  font-size: 0.9rem;
+  color: #666; /* Un grigio scuro per renderlo visibile ma non invadente */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.privacy-link:hover {
+  color: var(--ohima-red, #e53935);
+  text-decoration: underline;
+}
