@@ -87,6 +87,7 @@ public class SecurityConfig {
 
                         // Tutte le GET (letture) pubbliche
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.HEAD, "/api/**").permitAll()
 
                         // Endpoint specifici pubblici
                         .requestMatchers("/api/auth/login").permitAll()
