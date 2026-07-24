@@ -16,8 +16,8 @@ export class MenuListComponent implements OnInit {
   constructor(private restaurantService: RestaurantService) {}
 
   ngOnInit(): void {
-    // Usiamo l'ID 1 che è quello della tua pizzeria su Neon
-    this.restaurantService.getMenu(1).subscribe({
+    // Rimosso il riferimento a Neon DB, richiamiamo semplicemente il menu
+    this.restaurantService.getMenu().subscribe({
       next: (data) => {
         this.pizzas = data;
         this.loading = false;

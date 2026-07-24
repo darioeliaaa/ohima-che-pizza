@@ -19,13 +19,13 @@ export class MenuComponent implements OnInit {
   constructor(private restaurantService: RestaurantService) {}
 
   ngOnInit() {
-    // Usiamo l'ID 1 del tuo ristorante
-    this.restaurantService.getMenu(1).subscribe({
+    // Richiamiamo il servizio senza passare l'ID, ottenendo i dati dal file statico
+    this.restaurantService.getMenu().subscribe({
       next: (data) => {
         this.allPizzas = data;
         this.filteredPizzas = data;
 
-        // Estraiamo le categorie uniche dalla colonna 'category' del tuo DB
+        // Estraiamo le categorie uniche dalla proprietà 'category'
         const uniqueCats = [...new Set(data.map((item: any) => item.category))];
         // Puliamo da eventuali null e aggiungiamo TUTTO
         this.categories = ['TUTTO', ...uniqueCats.filter(c => c) as string[]];
@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
     if (cat === 'TUTTO') {
       this.filteredPizzas = this.allPizzas;
     } else {
-      // Filtriamo sulla proprietà 'category' (es: 'PIZZE')
+      // Filtriamo sulla proprietà 'category'
       this.filteredPizzas = this.allPizzas.filter(item => item.category === cat);
     }
   }

@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+// Qui importeremo i dati statici che creeremo nel prossimo file
+import { MENU_DATA } from './menu-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
-  // L'URL è /api perché abbiamo il proxy configurato nel file proxy.conf.json
-  private apiUrl = 'https://ohima-che-pizza.onrender.com/api';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  // Recupera il menù della pizzeria
-  getMenu(restaurantId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/menu-items/restaurant/${restaurantId}`);
+  // Recupera il menù della pizzeria dal file statico locale
+  getMenu(): Observable<any> {
+    // 'of' avvolge i dati statici in un Observable
+    return of(MENU_DATA);
   }
 
-  // Invia la prenotazione del tavolo
-  postBooking(restaurantId: number, bookingData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/bookings/restaurant/${restaurantId}`, bookingData);
+  /*
+  // NOTA: Senza backend non possiamo salvare prenotazioni.
+  // Se non ti serve, puoi cancellare questo metodo.
+  // Se invece hai un form e vuoi solo simulare che funzioni, usa questo:
+  postBooking(bookingData: any): Observable<any> {
+    console.log('Prenotazione simulata inviata:', bookingData);
+    return of({ success: true, message: 'Prenotazione confermata!' });
   }
+  */
 }
