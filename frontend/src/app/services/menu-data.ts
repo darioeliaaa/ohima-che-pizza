@@ -38,7 +38,7 @@ export const MENU_DATA = [
   {
     id: 112,
     category: 'PIZZE SPECIALI',
-    itemName: 'Casino o Michele',
+    itemName: 'Cosimo Michele',
     description: 'mozzarella, funghi trifolati, rucola, bufala',
     price: 12.00
   },
