@@ -8,6 +8,13 @@ export const MENU_DATA = [
     price: 5.00
   },
   {
+    id: 13,
+    category: 'PIZZE SPECIALI',
+    itemName: 'Citerà',
+    description: 'mozzarella, pomodoro, crema di basilico, funghi, guanciale, olive, salame, nduja',
+    price: 10.00
+  },
+  {
     id: 115,
     category: 'PIZZE SPECIALI',
     itemName: 'Lardata',
