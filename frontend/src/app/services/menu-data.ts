@@ -53,7 +53,7 @@ export const MENU_DATA = [
     id: 107,
     category: 'PIZZE SPECIALI',
     itemName: 'Valentino',
-    description: 'mozz., crema di gamberi, buratta, datterino rosso, pesto di pistacchio',
+    description: 'mozz., crema di gamberi, burrata, datterino rosso, pesto di pistacchio',
     price: 14.00
   },
   {
