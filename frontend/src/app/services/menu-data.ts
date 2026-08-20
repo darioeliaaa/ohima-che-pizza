@@ -14,13 +14,13 @@ export const MENU_DATA = [
     description: 'mozzarella, pomodoro, crema di basilico, funghi, guanciale, olive, salame, nduja',
     price: 10.00
   },
-  {
+  /*{
     id: 115,
     category: 'PIZZE SPECIALI',
     itemName: 'Lardata',
     description: 'pomodoro, mozzarella, guanciale di Norcia, pancetta, lardo di colonnata',
     price: 12.00
-  },
+  },*/
   {
     id: 109,
     category: 'PIZZE SPECIALI',
@@ -346,11 +346,11 @@ export const MENU_DATA = [
     description: '',
     price: 3.00
   },
-  {
+  /*{
     id: 130,
     category: 'ANTIPASTI',
     itemName: 'Cestino di fritto',
     description: '',
     price: 10.00
-  }
+  }*/
 ];
