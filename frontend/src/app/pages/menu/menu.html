@@ -1,6 +1,7 @@
 <div class="page-container">
   <div class="page-header">
-    <h1>IL NOSTRO <span class="text-orange">MENÙ</span></h1>
+    <span class="eyebrow center">Impasto a lunga lievitazione</span>
+    <h1>IL NOSTRO <em class="text-orange accent-italic">Menù</em></h1>
     <p>Scegli la tua sezione preferita e goditi il gusto.</p>
   </div>
 
@@ -10,14 +11,17 @@
       (click)="filterByCategory(cat)"
       [class.active]="selectedCategory === cat"
       class="nav-btn">
-      {{ cat }}
+      <span class="nav-btn-icon">{{ categoryIcon(cat) }}</span> {{ cat }}
     </button>
   </div>
 
-  <div *ngIf="loading" class="loader">Scaldando il forno...</div>
+  <div *ngIf="loading" class="loader">
+    <span class="loader-spin">🍕</span>
+    <span>Scaldando il forno...</span>
+  </div>
 
   <div class="menu-grid" *ngIf="!loading">
-    <div class="pizza-card" *ngFor="let pizza of filteredPizzas">
+    <div class="pizza-card" *ngFor="let pizza of filteredPizzas" appReveal>
       <div class="card-header">
         <h3>{{ pizza.itemName }}</h3>
         <span class="price">€{{ pizza.price | number:'1.2-2' }}</span>
@@ -28,7 +32,7 @@
   </div>
   <!-- SEZIONE AGGIUNTE (Da mettere sotto la griglia del menù) -->
   <div class="extras-section" *ngIf="!loading">
-    <div class="extras-card">
+    <div class="extras-card" appReveal>
       <h3 class="text-red">AGGIUNTE E VARIAZIONI</h3>
 
       <ul class="extras-list">

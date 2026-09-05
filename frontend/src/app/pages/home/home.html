@@ -1,48 +1,82 @@
 <div class="home-container">
 
   <header class="hero-section">
-    <div class="hero-text">
-      <h1>LA VERA PIZZA,<br><span class="text-red">STILE OHIMÀ.</span></h1>
-      <p>Impasto a lunga lievitazione, ingredienti gourmet e un'atmosfera unica a Marina di Strongoli.</p>
+    <div class="hero-bg">
+      <img src="/efad6191-a9b6-413f-962a-53779c95864c.JPG" alt="" class="hero-bg-img">
+    </div>
+
+    <span class="hero-badge font-stamp">DAL FORNO<br>A LEGNA 🔥</span>
+
+    <div class="hero-content">
+      <span class="eyebrow eyebrow-light">Marina di Strongoli · Forno a legna</span>
+      <h1 class="hero-title-big">LA VERA PIZZA,<br><em class="accent-italic">stile Ohimà.</em></h1>
+      <p class="hero-lead">Impasto a lunga lievitazione, ingredienti gourmet e un'atmosfera unica a Marina di Strongoli.</p>
 
       <div class="action-buttons">
         <a routerLink="/menu" class="btn btn-primary">GUARDA IL MENÙ</a>
-
       </div>
-    </div>
 
-    <div class="hero-image-placeholder">
-      <img src="/efad6191-a9b6-413f-962a-53779c95864c.JPG" class="about-img">
+      <a href="#recensioni" class="trust-line trust-line-light">
+        <span class="trust-stars">★★★★★</span>
+        <span>Le recensioni vere dei nostri clienti</span>
+      </a>
     </div>
   </header>
 
+  <!-- SEZIONE PERCHÉ SCEGLIERCI -->
+  <section class="features-section" appReveal>
+    <div class="feature-card">
+      <span class="feature-icon">🔥</span>
+      <h3>Forno a legna</h3>
+      <p>La fiamma viva cuoce ogni pizza in pochi minuti, per un cornicione croccante e leggero.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⏳</span>
+      <h3>Lunga lievitazione</h3>
+      <p>Un impasto che riposa a lungo, soffice e facile da digerire, dalla prima all'ultima fetta.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌿</span>
+      <h3>Ingredienti veri</h3>
+      <p>Materie prime calabresi selezionate con cura, senza scorciatoie e senza compromessi.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌊</span>
+      <h3>Marina di Strongoli</h3>
+      <p>Un'atmosfera unica a due passi dal mare, perfetta per una serata in compagnia.</p>
+    </div>
+  </section>
 
   <!-- SEZIONE RECENSIONI -->
-  <section class="reviews-section">
+  <section class="reviews-section" id="recensioni" appReveal>
     <div class="reviews-container">
+      <span class="eyebrow center">Le parole di chi ci ha già provato</span>
       <h2 class="text-red">DICONO DI NOI</h2>
       <p class="subtitle">Non credere a noi, credi a chi ci ha già provato!</p>
 
       <div class="reviews-grid">
         <!-- Recensione 1 -->
         <div class="review-card shadow-green">
+          <span class="quote-mark">“</span>
           <div class="stars">★★★★★</div>
           <p class="review-text">"La pizza è ottima, il servizio è confortevole e l’ambiente è tranquillo  accogliente"</p>
-          <p class="review-author">- MIRIAM DE TURSI</p>
+          <p class="review-author">— Miriam De Tursi</p>
         </div>
 
         <!-- Recensione 2 -->
         <div class="review-card shadow-orange">
+          <span class="quote-mark">“</span>
           <div class="stars">★★★★★</div>
           <p class="review-text">"Ottimo locale,pizza buonissima siamo venuti da Crotone 3 persone apposta,una delle migliori pizze assaggiate fin ora"</p>
-          <p class="review-author">- ULTIMORIVOLUZIONARIOKR</p>
+          <p class="review-author">— UltimoRivoluzionarioKR</p>
         </div>
 
         <!-- Recensione 3 -->
         <div class="review-card shadow-red">
+          <span class="quote-mark">“</span>
           <div class="stars">★★★★★</div>
           <p class="review-text">"Locale spartano in una zona ancora poco sviluppata di Strongoli ma vi assicuro che la pizza è la migliore di tutta la zona, croccante e ben condita. Le polpette di carne poi sono una goduria per il palato e la birra viene servita ghiacciata come dovrebbe sempre essere. Un plauso al cameriere che ci ha servito, cordiale, preparato, molto gentile e professionale. Entro la fine della vacanza ci torneremo senz'altro."</p>
-          <p class="review-author">- LUCIA BRAICO</p>
+          <p class="review-author">— Lucia Braico</p>
         </div>
       </div>
 
@@ -55,25 +89,5 @@
       </div>
     </div>
   </section>
-
-  <footer class="social-footer">
-    <div class="footer-content">
-      <h3>SEGUICI SUI SOCIAL</h3>
-      <p>Rimani aggiornato sulle nostre nuove pizze e serate speciali!</p>
-
-      <div class="social-links">
-        <a href="https://www.instagram.com/ohima_che_pizza/" target="_blank" class="social-btn instagram">
-          📷 INSTAGRAM
-        </a>
-        <a href="https://www.facebook.com/p/Ohimá-che-pizza-100086960983644/?locale=it_IT" target="_blank" class="social-btn facebook">
-          👍 FACEBOOK
-        </a>
-      </div>
-    </div>
-    <div class="legal-links">
-      <a routerLink="/privacy" class="privacy-link">Privacy & Cookie Policy</a>
-    </div>
-  </footer>
-
 
 </div>

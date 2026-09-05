@@ -1,73 +1,202 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600;1,9..144,700&family=Bungee&family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
   --ohima-red: rgb(213, 19, 19);
+  --ohima-red-dark: rgb(158, 14, 14);
   --ohima-beige: #F8F5EE;
+  --ohima-cream: #FFFDF7;
   --ohima-green: rgb(74, 103, 65);
+  --ohima-green-dark: rgb(50, 71, 44);
   --ohima-orange: #F5A623;
   --ohima-dark: #1a1a1a;
+
+  --ohima-red-glow: rgba(213, 19, 19, 0.28);
+  --ohima-green-glow: rgba(74, 103, 65, 0.28);
+  --ohima-orange-glow: rgba(245, 166, 35, 0.32);
+
+  --shadow-soft: 0 24px 48px -20px rgba(26, 26, 26, 0.35);
+  --shadow-soft-sm: 0 12px 28px -14px rgba(26, 26, 26, 0.3);
+  --shadow-red: 0 20px 38px -14px var(--ohima-red-glow);
+  --shadow-green: 0 20px 38px -14px var(--ohima-green-glow);
+  --shadow-orange: 0 20px 38px -14px var(--ohima-orange-glow);
+
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+
+  --ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
+  --navbar-h: 82px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --navbar-h: 72px;
+  }
+}
+
+* , *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: clip;
+  max-width: 100vw;
+  background-color: var(--ohima-dark);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: var(--ohima-beige);
+  background-color: var(--ohima-cream);
+  background-image:
+    radial-gradient(circle at 12% 8%, var(--ohima-orange-glow) 0%, transparent 40%),
+    radial-gradient(circle at 92% 0%, var(--ohima-green-glow) 0%, transparent 35%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-attachment: fixed;
   color: var(--ohima-dark);
-  overflow-x: hidden;
+  overflow-x: clip;
+  line-height: 1.5;
 }
 
 h1, h2, h3, .font-pop {
-  font-family: 'Bungee', sans-serif;
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
   color: var(--ohima-red);
   text-transform: uppercase;
+  letter-spacing: 0.01em;
   margin: 0;
 }
 
-/* Stile Bottoni "Pop-Art" */
-.btn {
-  display: inline-block;
-  padding: 12px 30px;
-  border-radius: 12px;
-  font-weight: 800;
-  cursor: pointer;
-  border: 4px solid var(--ohima-dark);
-  transition: all 0.2s;
-  font-size: 1.1rem;
+em, .accent-italic {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+}
+
+/* Piccolo richiamo "pop" riservato a badge, prezzi e dettagli */
+.font-stamp {
   font-family: 'Bungee', sans-serif;
-  box-shadow: 4px 4px 0px var(--ohima-dark);
-  text-decoration: none;
 }
 
-.btn-primary {
-  background: var(--ohima-red);
-  color: white;
+a {
+  color: inherit;
 }
 
-.btn-primary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--ohima-dark);
-}
+.text-red { color: var(--ohima-red); }
+.text-green { color: var(--ohima-green); }
+.text-orange { color: var(--ohima-orange); }
+.text-dark { color: var(--ohima-dark); }
 
-.btn-primary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px var(--ohima-dark);
-}
-
-.btn-outline {
-  background: white;
+::selection {
+  background: var(--ohima-orange);
   color: var(--ohima-dark);
 }
 
-.btn-outline:hover {
-  background: var(--ohima-beige);
-}
-/* IMPEDISCE ALLA PAGINA DI SBORDARE A DESTRA E SINISTRA */
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
+/* --- Bottoni: pillola morbida con ombra colorata invece dell'offset pop-art --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 34px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.35s var(--ease-pop), box-shadow 0.35s var(--ease-pop), background 0.25s ease, color 0.25s ease;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
+.btn-primary {
+  background: linear-gradient(135deg, var(--ohima-red), var(--ohima-red-dark));
+  color: white;
+  box-shadow: var(--shadow-red);
+}
+
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 40px -14px var(--ohima-red-glow);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ohima-dark);
+  border: 2px solid var(--ohima-dark);
+}
+
+.btn-outline:hover {
+  background: var(--ohima-dark);
+  color: var(--ohima-beige);
+  transform: translateY(-4px);
+}
+
+/* --- Utility condivise per il nuovo linguaggio visivo --- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ohima-green);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--ohima-orange);
+  border-radius: 2px;
+}
+
+.blob-shadow {
+  filter: drop-shadow(0 26px 30px rgba(26, 26, 26, 0.25));
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Reveal-on-scroll (vedi RevealDirective) --- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-pop), transform 0.7s var(--ease-pop);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

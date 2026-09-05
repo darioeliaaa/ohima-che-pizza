@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RevealDirective } from '../../directives/reveal';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink], // Fondamentale per i link interni!
+  imports: [RouterLink, RevealDirective],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

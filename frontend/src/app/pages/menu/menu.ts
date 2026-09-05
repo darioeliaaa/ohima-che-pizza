@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantService } from '../../services/restaurant';
+import { RevealDirective } from '../../directives/reveal';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RevealDirective],
   templateUrl: './menu.html',
   styleUrl: './menu.css'
 })
@@ -47,5 +48,23 @@ export class MenuComponent implements OnInit {
       // Filtriamo sulla proprietà 'category'
       this.filteredPizzas = this.allPizzas.filter(item => item.category === cat);
     }
+
+    // Se stavamo scrollati più in basso, torniamo in cima ai risultati
+    // (altrimenti si resta a guardare uno scroll ormai fuori posto o vuoto).
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  private categoryIcons: Record<string, string> = {
+    'TUTTO': '🍽️',
+    'PIZZE SPECIALI': '⭐',
+    'PIZZE ROSSE': '🍕',
+    'PIZZE BIANCHE': '🧀',
+    'DOLCI': '🍰',
+    'BEVANDE': '🥤',
+    'ANTIPASTI': '🫒'
+  };
+
+  categoryIcon(cat: string): string {
+    return this.categoryIcons[cat?.toUpperCase()] ?? '🍕';
   }
 }
