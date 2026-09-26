@@ -1,0 +1,51 @@
+:host {
+  position: relative;
+  display: block;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:host(.is-touched) { cursor: grabbing; }
+
+.disc {
+  will-change: transform;
+  filter: drop-shadow(0 14px 0 rgba(26, 20, 18, 0.28));
+}
+
+.hint {
+  position: absolute;
+  top: 4%;
+  left: max(5%, calc(50% - 50vw + 18px));
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 8px 10px;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--crust);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  rotate: -10deg;
+  box-shadow: 0 4px 0 var(--ink);
+  transition: opacity 0.4s ease, scale 0.4s var(--ease);
+  animation: nudge 2.4s var(--ease) 1.6s infinite;
+}
+
+.hint svg { width: 26px; height: 16px; }
+
+:host(.is-touched) .hint { opacity: 0; scale: 0.6; animation: none; }
+
+@keyframes nudge {
+  0%, 70%, 100% { translate: 0 0; }
+  80% { translate: 6px -3px; }
+  90% { translate: -2px 1px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint { animation: none; }
+}

@@ -1,67 +1,97 @@
-<div class="page-container">
-  <div class="page-header">
-    <span class="eyebrow center">Impasto a lunga lievitazione</span>
-    <h1>IL NOSTRO <em class="text-orange accent-italic">Menù</em></h1>
-    <p>Scegli la tua sezione preferita e goditi il gusto.</p>
-  </div>
+<section class="menu-hero">
+  <div class="container">
+    <span class="tag load" style="--d: 0.05s">Impasto a lunga lievitazione</span>
+    <h1 class="display load" style="--d: 0.12s"><span class="sticker-text is-red">Il menù</span></h1>
+    <p class="lead load" style="--d: 0.2s">Scegli la tua sezione preferita e goditi il gusto.</p>
 
-  <div class="category-nav" *ngIf="!loading">
-    <button
-      *ngFor="let cat of categories"
-      (click)="filterByCategory(cat)"
-      [class.active]="selectedCategory === cat"
-      class="nav-btn">
-      <span class="nav-btn-icon">{{ categoryIcon(cat) }}</span> {{ cat }}
-    </button>
-  </div>
-
-  <div *ngIf="loading" class="loader">
-    <span class="loader-spin">🍕</span>
-    <span>Scaldando il forno...</span>
-  </div>
-
-  <div class="menu-grid" *ngIf="!loading">
-    <div class="pizza-card" *ngFor="let pizza of filteredPizzas" appReveal>
-      <div class="card-header">
-        <h3>{{ pizza.itemName }}</h3>
-        <span class="price">€{{ pizza.price | number:'1.2-2' }}</span>
+    <!-- cerca per ingrediente -->
+    <div class="finder load" style="--d: 0.28s" role="search">
+      <label for="cerca-ingrediente" class="finder-label">Hai voglia di qualcosa in particolare?</label>
+      <div class="finder-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="cerca-ingrediente" type="search" autocomplete="off" enterkeyhint="search"
+               placeholder="Cerca un ingrediente…" [value]="query()" (input)="search($any($event.target).value)">
+        @if (query()) {
+          <button type="button" class="finder-clear" (click)="search('')" aria-label="Cancella la ricerca">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        }
       </div>
-      <p class="description">{{ pizza.description }}</p>
-      <div class="category-badge">{{ pizza.category }}</div>
+      <div class="finder-chips">
+        @for (word of suggestions; track word) {
+          <button type="button" [class.is-on]="query() === word" [attr.aria-pressed]="query() === word" (click)="pick(word)">{{ word }}</button>
+        }
+      </div>
+      @if (query()) {
+        <p class="finder-count" aria-live="polite">{{ results() }} {{ results() === 1 ? 'risultato' : 'risultati' }} con “{{ query() }}”</p>
+      }
     </div>
   </div>
-  <!-- SEZIONE AGGIUNTE (Da mettere sotto la griglia del menù) -->
-  <div class="extras-section" *ngIf="!loading">
-    <div class="extras-card" appReveal>
-      <h3 class="text-red">AGGIUNTE E VARIAZIONI</h3>
+</section>
 
-      <ul class="extras-list">
-        <li>
-          <span class="extra-name">Bufala</span>
-          <span class="extra-price">+ € 2,50</span>
+@if (loading()) {
+  <p class="loader">Scaldando il forno...</p>
+} @else {
+  @if (!query()) {
+    <nav class="chapter-nav" aria-label="Sezioni del menù">
+      <div class="chapter-track">
+        @for (ch of chapters(); track ch.id) {
+          <a [href]="'/menu#' + ch.id" [attr.data-id]="ch.id" [class.is-active]="active() === ch.id"
+             [attr.aria-current]="active() === ch.id ? 'true' : null" (click)="goTo($event, ch.id)">
+            {{ ch.nav }}
+          </a>
+        }
+      </div>
+    </nav>
+  }
 
-        </li>
-        <li>
-          <span class="extra-name">Stracciatella</span>
-          <span class="extra-price">+ € 2,50</span>
-        </li>
-        <li>
-          <span class="extra-name">Burrata</span>
-          <span class="extra-price">+ € 2,50</span>
-        </li>
-        <li>
-          <span class="extra-name">Aggiunta verdura</span>
-          <span class="extra-price">+ € 2,00</span>
-        </li>
-        <li>
-          <span class="extra-name">Altre salse</span>
-          <span class="extra-price">+ € 0,20</span>
-        </li>
-      </ul>
+  @for (ch of visible(); track ch.id) {
+    <section class="chapter" [id]="ch.id" [class.is-red]="ch.id === 'speciali'">
+      <div class="container">
+        <header class="chapter-head">
+          <h2 class="display">{{ ch.title }}</h2>
+          <span class="chapter-count">{{ ch.items.length }}</span>
+          <p>{{ ch.note }}</p>
+        </header>
 
-      <div class="coperto-banner">
-        <p>coperto: <strong>€ 2,00</strong></p>
+        <div class="chapter-list">
+          @for (dish of ch.items; track dish.id) {
+            <article class="dish" [class.has-art]="ch.pizza">
+              @if (ch.pizza) {
+                <div class="dish-art"><app-pizza-art [desc]="dish.description" [seed]="dish.id"/></div>
+              }
+              <div class="dish-body">
+                <div class="dish-head">
+                  <h3 class="dish-name">@for (m of mark(dish.itemName); track $index) { @if (m.hit) { <mark>{{ m.t }}</mark> } @else { <span>{{ m.t }}</span> } }</h3>
+                  <span class="dish-price">€ {{ price(dish.price) }}</span>
+                </div>
+                @if (dish.description) {
+                  <p class="dish-desc">@for (m of mark(dish.description); track $index) { @if (m.hit) { <mark>{{ m.t }}</mark> } @else { <span>{{ m.t }}</span> } }</p>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+  } @empty {
+    <div class="container empty">
+      <p class="display">Niente con “{{ query() }}”.</p>
+      <p>Prova con un altro ingrediente, oppure <button type="button" (click)="search('')">guarda tutto il menù</button>.</p>
+    </div>
+  }
+
+  <section class="extras">
+    <div class="container">
+      <div class="ticket-card" appReveal>
+        <h2 class="display">Aggiunte e variazioni</h2>
+        <ul class="extras-list">
+          @for (extra of extras; track extra.name) {
+            <li><span>{{ extra.name }}</span><b>+ € {{ extra.price }}</b></li>
+          }
+        </ul>
+        <p class="coperto"><span>Coperto</span><b>€ 2,00</b></p>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+}

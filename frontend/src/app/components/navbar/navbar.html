@@ -1,22 +1,48 @@
-<nav class="navbar">
-  <div class="nav-container">
-
-    <a routerLink="/" class="logo-link" (click)="closeMenu()">
-      <img src="favicon.ico" alt="Ohimà Logo" class="nav-logo">
+<header class="nav" [class.is-scrolled]="scrolled()" [class.is-open]="isMenuOpen()">
+  <div class="nav-pill">
+    <a routerLink="/" class="nav-logo" (click)="closeMenu()" aria-label="Ohimà Che Pizza, torna alla home">
+      <img src="logo.png" alt="" width="573" height="513">
     </a>
 
-    <button class="hamburger-btn" (click)="toggleMenu()" [class.open]="isMenuOpen">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
+    <nav class="nav-links" aria-label="Navigazione principale">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/menu" routerLinkActive="is-active">Il menù</a>
+      <a routerLink="/chi-siamo" routerLinkActive="is-active">Chi siamo</a>
+    </nav>
+
+    <a href="tel:+393248333640" class="nav-call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>
+      </svg>
+      324 833 3640
+    </a>
+
+    <a href="tel:+393248333640" class="nav-call-mini" aria-label="Chiama 324 833 3640">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>
+      </svg>
+    </a>
+
+    <button type="button" class="nav-toggle" (click)="toggleMenu()"
+            [attr.aria-expanded]="isMenuOpen()" aria-controls="menu-mobile"
+            [attr.aria-label]="isMenuOpen() ? 'Chiudi il menù' : 'Apri il menù'">
+      <span></span><span></span><span></span>
     </button>
-
-    <div class="nav-links" [class.mobile-open]="isMenuOpen">
-      <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link" (click)="closeMenu()">HOME</a>
-      <a routerLink="/menu" routerLinkActive="active-link" (click)="closeMenu()">IL MENÙ</a>
-      <a routerLink="/chi-siamo" routerLinkActive="active-link" (click)="closeMenu()">CHI SIAMO</a>
-      <a href="tel:+393248333640" class="nav-call" (click)="closeMenu()">📞 324 833 3640</a>
-    </div>
-
   </div>
-</nav>
+</header>
+
+<div class="mobile" id="menu-mobile" [class.is-open]="isMenuOpen()" [attr.inert]="isMenuOpen() ? null : ''">
+  <nav class="mobile-links" aria-label="Navigazione mobile">
+    <a routerLink="/" (click)="closeMenu()">Home</a>
+    <a routerLink="/menu" (click)="closeMenu()">Il menù</a>
+    <a routerLink="/chi-siamo" (click)="closeMenu()">Chi siamo</a>
+  </nav>
+  <div class="mobile-foot">
+    <a href="tel:+393248333640" class="btn btn-light" (click)="closeMenu()">Chiama 324 833 3640</a>
+    <p>Viale del Tempio d'Apollo 65<br>Marina di Strongoli (KR)</p>
+    <div class="mobile-social">
+      <a href="https://www.instagram.com/ohima_che_pizza/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.facebook.com/p/Ohimá-che-pizza-100086960983644/?locale=it_IT" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+  </div>
+</div>

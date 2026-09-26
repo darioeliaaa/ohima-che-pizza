@@ -1,64 +1,81 @@
-<div class="about-container">
+<!-- APERTURA: dentro il forno -->
+<section class="about-hero">
+  <app-embers [count]="60"/>
+  <div class="container about-hero-inner">
+    <span class="tag load" style="--d: 0.05s">Chi siamo</span>
+    <p class="heat display" aria-hidden="true"><span #counter>0</span>°</p>
+    <h1 class="load" style="--d: 0.2s">Il cuore di Ohimà batte a <em>oltre 400 gradi.</em></h1>
+  </div>
+</section>
 
-  <section class="about-section" appReveal>
-    <div class="about-text">
-      <span class="section-number">01</span>
-      <span class="eyebrow">La passione dietro al forno</span>
-      <h2 class="text-red">LA NOSTRA <br><em class="accent-italic">Filosofia</em></h2>
-      <p>Il cuore di Ohimà batte a oltre 400 gradi. La nostra filosofia passa tutta da qui: il fuoco vivo del nostro forno tradizionale. Abbiamo preso la vera arte della pizza e l'abbiamo accesa per garantirti una cottura impeccabile. La fiamma bacia l'impasto, sprigionando quei profumi autentici e creando quella magia croccante fuori e scioglievole dentro. Perché per noi, l'atmosfera è pura festa, ma la cottura è una cosa seria.</p>
-    </div>
-    <div class="about-image-box">
-      <div class="about-image-mask shadow-green">
-        <img src="/1d9d06bb-0a89-437e-92d7-4da27922e657.JPG" class="about-img">
-      </div>
-      <span class="handmade-badge font-stamp">FATTA A<br>MANO 🤌</span>
-    </div>
-  </section>
+<!-- LA FILOSOFIA: il fuoco -->
+<section class="story">
+  <div class="container story-grid">
+    <figure class="photo-sticker" appReveal>
+      <img src="forno.jpg" alt="Il fuoco vivo nel forno a legna di Ohimà" width="1199" height="867" loading="lazy">
+      <figcaption class="tag">Il nostro forno</figcaption>
+    </figure>
 
-  <section class="about-section section-reverse" appReveal>
-    <div class="about-text">
-      <span class="section-number">02</span>
-      <span class="eyebrow">Ingredienti calabresi, tempo giusto</span>
-      <h2 class="text-green">SOLO ROBA <br><em class="accent-italic">Buona</em></h2>
-      <p>Niente scorciatoie, solo tanta pazienza. Il vero segreto della nostra leggerezza è un impasto che riposa e matura lentamente, molto più di te nel weekend! Curiamo ogni singolo panetto con dedizione per garantirti una pizza super digeribile, soffice come una nuvola e dalla consistenza perfetta. Prima ancora di condirla con i migliori ingredienti calabresi, la 'roba buona' inizia proprio da qui: acqua, farina e il giusto tempo.</p>
+    <div class="story-copy" appReveal>
+      <span class="tag">La passione dietro al forno</span>
+      <h2 class="display">La nostra <span class="sticker-text is-red">filosofia</span></h2>
+      <p>La nostra filosofia passa tutta da qui: il fuoco vivo del nostro forno tradizionale. Abbiamo preso la vera arte della pizza e l'abbiamo accesa per garantirti una cottura impeccabile. La fiamma bacia l'impasto, sprigionando quei profumi autentici e creando quella magia croccante fuori e scioglievole dentro.</p>
+      <blockquote class="bubble">Perché per noi, l'atmosfera è pura festa, ma la cottura è una cosa seria.</blockquote>
     </div>
-    <div class="about-image-box">
-      <div class="about-image-mask shadow-red">
-        <img src="/285758ba-3626-4a8d-86e6-57c1eebaf8d1.JPG" class="about-img">
-      </div>
+  </div>
+</section>
+
+<!-- SOLO ROBA BUONA: l'impasto -->
+<section class="story story-alt">
+  <div class="container story-grid">
+    <figure class="photo-sticker" appReveal>
+      <img src="impasto.jpg" alt="I panetti di impasto che maturano lentamente" width="1200" height="1200" loading="lazy">
+      <figcaption class="tag">I panetti che riposano</figcaption>
+    </figure>
+
+    <div class="story-copy" appReveal>
+      <span class="tag">Ingredienti calabresi, tempo giusto</span>
+      <h2 class="display">Solo roba <span class="sticker-text is-red">buona</span></h2>
+      <p>Niente scorciatoie, solo tanta pazienza. Il vero segreto della nostra leggerezza è un impasto che riposa e matura lentamente, molto più di te nel weekend! Curiamo ogni singolo panetto con dedizione per garantirti una pizza super digeribile, soffice come una nuvola e dalla consistenza perfetta.</p>
+      <blockquote class="bubble bubble-green">Prima ancora di condirla con i migliori ingredienti calabresi, la 'roba buona' inizia proprio da qui: acqua, farina e il giusto tempo.</blockquote>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="location-section" appReveal>
-    <div class="location-card">
-      <span class="eyebrow center">Vieni a trovarci</span>
-      <h2 class="text-orange">CI TROVI QUI</h2>
+<!-- DOVE SIAMO -->
+<section class="where">
+  <div class="container where-grid">
+    <div appReveal>
+      <span class="tag">Vieni a trovarci</span>
+      <h2 class="display">Ci trovi <span class="sticker-text is-red">qui.</span></h2>
 
-      <div class="location-grid">
-        <div class="info-item">
-          <span class="info-icon">📍</span>
-          <h3>INDIRIZZO</h3>
-          <p>Viale del tempio d'apollo 65, Marina di Strongoli (KR), 88815</p>
+      <dl class="where-info">
+        <div>
+          <dt>Indirizzo</dt>
+          <dd>Viale del Tempio d'Apollo 65<br>Marina di Strongoli (KR), 88815</dd>
         </div>
-        <div class="info-item">
-          <span class="info-icon">☎️</span>
-          <h3>CONTATTI</h3>
-          <p>Telefono: 324 833 3640<br>Email: ohimachepizza22@gmail.com</p>
+        <div>
+          <dt>Telefono</dt>
+          <dd><a href="tel:+393248333640">324 833 3640</a></dd>
         </div>
-      </div>
+        <div>
+          <dt>Email</dt>
+          <dd><a href="mailto:ohimachepizza22@gmail.com">ohimachepizza22&#64;gmail.com</a></dd>
+        </div>
+      </dl>
 
-      <div class="map-placeholder">
-        <a href="https://www.google.com/maps/place/Ohimà+che+pizza/@39.2468562,17.1043079,18z/data=!4m9!1m2!2m1!1sViale+del+tempio+d'apollo+65,+Marina+di+Strongoli+(KR),+88815!3m5!1s0x134051e9a917715d:0x537b7bf19144dded!8m2!3d39.2468561!4d17.1061005!16s%2Fg%2F11sbh123s4?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="map-link">
-          <img src="/mappa.jpg" class="map-static-img">
-          <div class="map-overlay">
-            <span>Clicca per aprire le indicazioni su Google Maps</span>
-          </div>
-        </a>
+      <div class="where-cta">
+        <a href="https://www.google.com/maps/place/Ohimà+che+pizza/@39.2468562,17.1043079,18z/data=!4m9!1m2!2m1!1sViale+del+tempio+d'apollo+65,+Marina+di+Strongoli+(KR),+88815!3m5!1s0x134051e9a917715d:0x537b7bf19144dded!8m2!3d39.2468561!4d17.1061005!16s%2Fg%2F11sbh123s4?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn btn-red">Portami lì</a>
+        <a href="tel:+393248333640" class="btn btn-light">Chiama</a>
       </div>
     </div>
-  </section>
 
-</div>
+    <a class="map" appReveal
+       href="https://www.google.com/maps/place/Ohimà+che+pizza/@39.2468562,17.1043079,18z/data=!4m9!1m2!2m1!1sViale+del+tempio+d'apollo+65,+Marina+di+Strongoli+(KR),+88815!3m5!1s0x134051e9a917715d:0x537b7bf19144dded!8m2!3d39.2468561!4d17.1061005!16s%2Fg%2F11sbh123s4?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D"
+       target="_blank" rel="noopener noreferrer" aria-label="Apri la posizione di Ohimà su Google Maps">
+      <img src="mappa.jpg" alt="Mappa di Marina di Strongoli con la posizione di Ohimà Che Pizza" width="1908" height="950" loading="lazy">
+      <span class="map-pin" aria-hidden="true"><img src="logo.png" alt="" width="573" height="513"></span>
+      <span class="tag map-cta">Apri su Google Maps</span>
+    </a>
+  </div>
+</section>

@@ -1,93 +1,133 @@
-<div class="home-container">
+<!-- APERTURA: sei dentro il logo, e la pizza la giri tu -->
+<section class="hero">
+  <div class="hero-dots" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="tag load" style="--d: 0.05s">Marina di Strongoli · Forno a legna</span>
+      <h1 class="hero-title display">
+        <span class="sticker-text load" style="--d: 0.12s">La vera pizza,</span>
+        <span class="sticker-text is-crust load" style="--d: 0.22s">stile Ohimà.</span>
+      </h1>
+      <p class="lead load" style="--d: 0.32s">Impasto a lunga lievitazione, ingredienti gourmet e un'atmosfera unica a Marina di Strongoli.</p>
 
-  <header class="hero-section">
-    <div class="hero-bg">
-      <img src="/efad6191-a9b6-413f-962a-53779c95864c.JPG" alt="" class="hero-bg-img">
-    </div>
-
-    <span class="hero-badge font-stamp">DAL FORNO<br>A LEGNA 🔥</span>
-
-    <div class="hero-content">
-      <span class="eyebrow eyebrow-light">Marina di Strongoli · Forno a legna</span>
-      <h1 class="hero-title-big">LA VERA PIZZA,<br><em class="accent-italic">stile Ohimà.</em></h1>
-      <p class="hero-lead">Impasto a lunga lievitazione, ingredienti gourmet e un'atmosfera unica a Marina di Strongoli.</p>
-
-      <div class="action-buttons">
-        <a routerLink="/menu" class="btn btn-primary">GUARDA IL MENÙ</a>
+      <div class="hero-cta load" style="--d: 0.42s">
+        <a routerLink="/menu" class="btn btn-light">
+          Guarda il menù
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="tel:+393248333640" class="btn btn-ink">Chiama</a>
       </div>
 
-      <a href="#recensioni" class="trust-line trust-line-light">
-        <span class="trust-stars">★★★★★</span>
-        <span>Le recensioni vere dei nostri clienti</span>
+      <a href="#recensioni" class="hero-trust load" style="--d: 0.5s">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        Le recensioni vere dei nostri clienti
       </a>
     </div>
-  </header>
 
-  <!-- SEZIONE PERCHÉ SCEGLIERCI -->
-  <section class="features-section" appReveal>
-    <div class="feature-card">
-      <span class="feature-icon">🔥</span>
-      <h3>Forno a legna</h3>
-      <p>La fiamma viva cuoce ogni pizza in pochi minuti, per un cornicione croccante e leggero.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">⏳</span>
-      <h3>Lunga lievitazione</h3>
-      <p>Un impasto che riposa a lungo, soffice e facile da digerire, dalla prima all'ultima fetta.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🌿</span>
-      <h3>Ingredienti veri</h3>
-      <p>Materie prime calabresi selezionate con cura, senza scorciatoie e senza compromessi.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🌊</span>
-      <h3>Marina di Strongoli</h3>
-      <p>Un'atmosfera unica a due passi dal mare, perfetta per una serata in compagnia.</p>
-    </div>
-  </section>
+    <app-spin-pizza class="hero-pizza"/>
+  </div>
+</section>
 
-  <!-- SEZIONE RECENSIONI -->
-  <section class="reviews-section" id="recensioni" appReveal>
-    <div class="reviews-container">
-      <span class="eyebrow center">Le parole di chi ci ha già provato</span>
-      <h2 class="text-red">DICONO DI NOI</h2>
-      <p class="subtitle">Non credere a noi, credi a chi ci ha già provato!</p>
+<!-- COME NASCE UNA OHIMÀ: la pizza si prepara mentre scorri -->
+<app-pizza-story/>
 
-      <div class="reviews-grid">
-        <!-- Recensione 1 -->
-        <div class="review-card shadow-green">
-          <span class="quote-mark">“</span>
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"La pizza è ottima, il servizio è confortevole e l’ambiente è tranquillo  accogliente"</p>
-          <p class="review-author">— Miriam De Tursi</p>
+<!-- LE SPECIALI: si sfogliano col dito, e le pizze rotolano -->
+<section class="specials">
+  <div class="container spec-head" appReveal>
+    <div>
+      <span class="tag">Dal nostro menù</span>
+      <h2 class="display">Le speciali <span class="sticker-text is-red">della casa</span></h2>
+    </div>
+    <p class="spec-note">Le ricette che portano la firma di Ohimà. Ogni pizza qui è disegnata con i suoi ingredienti veri.</p>
+    <div class="deck-arrows">
+      <button type="button" (click)="deck.move(-1)" aria-label="Pizza precedente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" (click)="deck.move(1)" aria-label="Pizza successiva">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="deck spec-deck" appDeck #deck="appDeck">
+    @for (dish of specials; track dish.id) {
+      <article class="spec-card">
+        <div class="spec-art">
+          <app-pizza-art [desc]="dish.description" [seed]="dish.id"/>
         </div>
+        <span class="spec-price">€ {{ price(dish.price) }}</span>
+        <h3>{{ dish.itemName }}</h3>
+        <p>{{ dish.description }}</p>
+      </article>
+    }
+    <a routerLink="/menu" class="spec-card spec-more">
+      <span class="sticker-text">Tutto il menù</span>
+      <span class="spec-more-note">Rosse, bianche, antipasti, dolci e bevande</span>
+      <span class="spec-more-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+  </div>
+  <div class="deck-progress" aria-hidden="true"><i></i></div>
+</section>
 
-        <!-- Recensione 2 -->
-        <div class="review-card shadow-orange">
-          <span class="quote-mark">“</span>
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"Ottimo locale,pizza buonissima siamo venuti da Crotone 3 persone apposta,una delle migliori pizze assaggiate fin ora"</p>
-          <p class="review-author">— UltimoRivoluzionarioKR</p>
+<!-- RECENSIONI: scritte come comande, testi originali -->
+<section class="reviews" id="recensioni">
+  <div class="container rev-head" appReveal>
+    <span class="tag">Le parole di chi ci ha già provato</span>
+    <h2 class="display sticker-text">Dicono di noi.</h2>
+    <p>Non credere a noi, credi a chi ci ha già provato!</p>
+  </div>
+
+  <div class="deck rev-deck" appDeck>
+    @for (r of reviews; track r.author; let i = $index) {
+      <figure class="ticket-wrap" [style.--tilt]="i === 1 ? '1.5deg' : i === 2 ? '-1deg' : '-2deg'">
+        <div class="ticket">
+          <div class="ticket-top">
+            <span>Ohimà Che Pizza</span>
+            <span class="stars" aria-label="5 stelle su 5">★★★★★</span>
+          </div>
+          <blockquote>“{{ r.text }}”</blockquote>
+          <figcaption><span>Cliente</span>{{ r.author }}</figcaption>
         </div>
+      </figure>
+    }
+  </div>
+  <div class="deck-progress rev-progress" aria-hidden="true"><i></i></div>
 
-        <!-- Recensione 3 -->
-        <div class="review-card shadow-red">
-          <span class="quote-mark">“</span>
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"Locale spartano in una zona ancora poco sviluppata di Strongoli ma vi assicuro che la pizza è la migliore di tutta la zona, croccante e ben condita. Le polpette di carne poi sono una goduria per il palato e la birra viene servita ghiacciata come dovrebbe sempre essere. Un plauso al cameriere che ci ha servito, cordiale, preparato, molto gentile e professionale. Entro la fine della vacanza ci torneremo senz'altro."</p>
-          <p class="review-author">— Lucia Braico</p>
-        </div>
-      </div>
+  <div class="container rev-more">
+    <a href="https://www.google.com/maps/place/Ohimà+che+pizza/@39.2464781,17.1052925,18z/data=!4m11!1m2!2m1!1sViale+del+tempio+d'apollo+65,+Marina+di+Strongoli+(KR),+88815!3m7!1s0x134051e9a917715d:0x537b7bf19144dded!8m2!3d39.2468561!4d17.1061005!9m1!1b1!16s%2Fg%2F11sbh123s4?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn btn-light">
+      Leggi tutte le recensioni su Google
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+    </a>
+  </div>
+</section>
 
-      <!-- Bottone Link a Google Maps -->
-      <div class="reviews-action">
-        <!-- NOTA: Sostituisci il link '#INSERISCI_QUI_IL_TUO_LINK_GOOGLE' con il link effettivo della tua scheda Google My Business -->
-        <a href="https://www.google.com/maps/place/Ohimà+che+pizza/@39.2464781,17.1052925,18z/data=!4m11!1m2!2m1!1sViale+del+tempio+d'apollo+65,+Marina+di+Strongoli+(KR),+88815!3m7!1s0x134051e9a917715d:0x537b7bf19144dded!8m2!3d39.2468561!4d17.1061005!9m1!1b1!16s%2Fg%2F11sbh123s4?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-google-reviews">
-          <span class="btn-icon">G</span> Leggi tutte le recensioni su Google
+<!-- VIENI A TROVARCI -->
+<section class="visit">
+  <div class="container visit-grid">
+    <div class="visit-copy" appReveal>
+      <span class="tag">Vieni a trovarci</span>
+      <h2 class="display">A due passi <span class="sticker-text is-red">dal mare.</span></h2>
+      <p class="lead">Un'atmosfera unica a due passi dal mare, perfetta per una serata in compagnia.</p>
+
+      <address class="visit-address">
+        Viale del Tempio d'Apollo 65<br>
+        Marina di Strongoli (KR)
+      </address>
+
+      <div class="visit-cta">
+        <a href="https://www.google.com/maps/place/Ohim%C3%A0+che+pizza/@39.2468561,17.1061005,18z" target="_blank" rel="noopener noreferrer" class="btn btn-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Portami lì
         </a>
+        <a href="tel:+393248333640" class="btn btn-light">Chiama 324 833 3640</a>
       </div>
     </div>
-  </section>
 
-</div>
+    <figure class="visit-photo" appReveal>
+      <img src="insegna.jpg" alt="L'insegna di Ohimà Che Pizza tra le bouganville di Viale del Tempio d'Apollo" width="1400" height="1300" loading="lazy">
+      <figcaption class="tag">Ci trovi qui sotto</figcaption>
+    </figure>
+  </div>
+</section>

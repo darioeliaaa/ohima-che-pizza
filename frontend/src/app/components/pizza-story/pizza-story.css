@@ -1,0 +1,281 @@
+/* la sezione è alta quattro schermate: mentre scorri, il palco resta fermo */
+.st {
+  position: relative;
+  height: 430vh;
+  height: 430svh;
+  background: var(--flour);
+  --rise: 0; --flat: 0; --spread: 0; --top: 0; --heat: 0; --bake: 0; --serve: 0; --ph1: 0; --ph2: 0; --p: 0;
+}
+
+.st-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--ink);
+  transition: color 0.4s ease;
+}
+
+.st-stage[data-dark] { color: var(--mozza); }
+
+/* il buio del forno, con il bagliore della brace dal basso */
+.st-oven {
+  position: absolute;
+  inset: 0;
+  opacity: var(--heat);
+  background:
+    radial-gradient(120% 60% at 50% 105%, rgba(255, 106, 26, 0.5), transparent 62%),
+    radial-gradient(60% 40% at 50% 45%, rgba(255, 140, 40, 0.14), transparent 70%),
+    var(--oven);
+}
+
+.st-grid {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding-top: calc(var(--nav-h) + 6px);
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+}
+
+.st-top { display: flex; align-items: center; gap: 16px; }
+
+.st-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.st-bar { flex: 1; display: flex; gap: 5px; }
+
+.st-bar i {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.st-bar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--tomato);
+  transform-origin: left;
+  transform: scaleX(clamp(0, calc(var(--p) * 4 - var(--k)), 1));
+}
+
+.st-bar i:nth-child(1) { --k: 0; }
+.st-bar i:nth-child(2) { --k: 1; }
+.st-bar i:nth-child(3) { --k: 2; }
+.st-bar i:nth-child(4) { --k: 3; }
+.st-stage[data-dark] .st-bar i::after { background: var(--crust); }
+
+/* --- il palco della pizza --- */
+
+.st-art {
+  --size: min(80vw, 43svh);
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.st-dough {
+  position: absolute;
+  width: calc(var(--size) * 0.5);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: radial-gradient(circle at 36% 30%, #fffaf0 0 8%, #f4e2c0 38%, #e2c48f 100%);
+  box-shadow: 0 10px 0 rgba(26, 20, 18, 0.18);
+  scale: calc(0.78 + var(--rise) * 0.3 + var(--flat) * 0.7);
+  opacity: calc(1 - var(--flat));
+}
+
+.st-pizza {
+  position: relative;
+  width: var(--size);
+  aspect-ratio: 1;
+  opacity: var(--flat);
+  scale: calc(0.62 + var(--flat) * 0.38);
+}
+
+.st-main,
+.st-slice-wrap { position: absolute; inset: 0; }
+
+.st-slice-wrap {
+  visibility: hidden;
+  translate: calc(var(--serve) * 10.2%) calc(var(--serve) * 7.2%);
+  filter: drop-shadow(0 calc(var(--serve) * 9px) 0 rgba(0, 0, 0, 0.35));
+}
+
+/* la fetta: uno spicchio da un ottavo, verso il basso a destra */
+.st-stage[data-serve] .st-slice-wrap { visibility: visible; }
+.st-stage[data-serve] .st-slice { clip-path: polygon(50% 50%, 123.2% 66.2%, 111.4% 93%, 90.3% 113.2%); }
+.st-stage[data-serve] .st-main { clip-path: polygon(50% 50%, 90.3% 113.2%, -30% 110%, -30% -30%, 130% -30%, 123.2% 66.2%); }
+
+.st .pz-crust-raw { opacity: calc(1 - var(--bake)); }
+.st .pz-char { opacity: var(--bake); }
+
+.st .pz-base {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--spread)) rotate(calc((1 - var(--spread)) * -90deg));
+}
+
+.st .pz-p {
+  --t: clamp(0, calc((var(--top) * (var(--n) + 4) - var(--i)) / 4), 1);
+  opacity: var(--t);
+  transform: translateY(calc((1 - var(--t)) * -16px)) scale(calc(0.4 + var(--t) * 0.6));
+}
+
+.st-burst {
+  position: absolute;
+  top: -4%;
+  right: -2%;
+  display: grid;
+  place-items: center;
+  width: clamp(84px, 24vw, 128px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: var(--crust);
+  box-shadow: 0 5px 0 var(--ink);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 4.6vw, 1.7rem);
+  rotate: -14deg;
+  scale: var(--serve);
+}
+
+.st-photo {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  width: clamp(92px, 26vw, 180px);
+  padding: 5px 5px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--mozza);
+  box-shadow: 0 5px 0 var(--ink);
+}
+
+.st-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
+
+.st-photo-dough {
+  top: 0;
+  right: 0;
+  rotate: 7deg;
+  opacity: var(--ph1);
+  scale: calc(0.7 + var(--ph1) * 0.3);
+}
+
+.st-photo-fire {
+  bottom: 2%;
+  left: 0;
+  rotate: -7deg;
+  opacity: var(--ph2);
+  scale: calc(0.7 + var(--ph2) * 0.3);
+}
+
+.st-temp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 13vw, 5.6rem);
+  line-height: 0.9;
+  color: var(--crust);
+  text-shadow: 0 0 28px rgba(255, 120, 30, 0.7);
+  font-variant-numeric: tabular-nums;
+  opacity: calc(var(--heat) * (1 - var(--serve)));
+}
+
+.st-temp b { font-weight: inherit; }
+
+.st-temp small {
+  font-size: 0.26em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mozza);
+  text-shadow: none;
+}
+
+/* --- i testi delle fasi, uno alla volta --- */
+
+.st-texts { position: relative; min-height: 196px; }
+
+.st-text {
+  position: absolute;
+  inset: auto 0 0;
+  opacity: 0;
+  translate: 0 18px;
+  pointer-events: none;
+  transition: opacity 0.45s ease, translate 0.55s var(--ease);
+}
+
+.st-stage[data-step="0"] .st-text[data-i="0"],
+.st-stage[data-step="1"] .st-text[data-i="1"],
+.st-stage[data-step="2"] .st-text[data-i="2"],
+.st-stage[data-step="3"] .st-text[data-i="3"] {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+
+.st-kicker {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--tomato);
+}
+
+.st-stage[data-dark] .st-kicker { color: var(--crust); }
+
+.st-text h3 {
+  margin: 4px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 9vw, 3.6rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.st-text p { max-width: 40ch; font-size: 1.04rem; line-height: 1.55; opacity: 0.86; }
+.st-text .btn { margin-top: 18px; }
+
+/* --- desktop: pizza a sinistra, testi a destra --- */
+
+@media (min-width: 900px) {
+  .st-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    column-gap: 64px;
+    padding-bottom: 48px;
+  }
+  .st-top { grid-column: 1 / -1; max-width: 560px; }
+  .st-art { --size: min(40vw, 60svh); }
+  .st-texts { align-self: center; min-height: 300px; }
+  .st-text { inset: 50% 0 auto; transform: translateY(-50%); }
+}
+
+/* --- movimento ridotto: la storia diventa una pagina normale --- */
+
+.st.is-static { height: auto; }
+.st.is-static .st-stage { position: relative; height: auto; }
+.st.is-static .st-grid { height: auto; padding-bottom: 72px; }
+.st.is-static .st-art { min-height: 360px; }
+.st.is-static .st-texts { display: grid; gap: 32px; min-height: 0; }
+.st.is-static .st-text { position: static; opacity: 1; translate: none; transform: none; pointer-events: auto; }
+.st.is-static .st-photo, .st.is-static .st-temp { display: none; }

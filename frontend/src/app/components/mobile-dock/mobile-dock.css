@@ -1,0 +1,51 @@
+:host { display: contents; }
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 90;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--mozza);
+  box-shadow: 0 5px 0 var(--ink);
+  view-transition-name: dock;
+  translate: -50% calc(100% + 40px);
+  transition: translate 0.5s var(--ease);
+}
+
+.dock.is-shown { translate: -50% 0; }
+
+.dock a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, scale 0.2s ease;
+}
+
+.dock a:active { scale: 0.94; }
+.dock svg { width: 20px; height: 20px; flex: none; }
+
+.dock .dock-call { background: var(--tomato); color: var(--mozza); padding: 0 20px; }
+.dock .dock-btn:hover { background: var(--flour); }
+
+@media (min-width: 861px) {
+  .dock { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock { transition: none; }
+}

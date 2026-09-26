@@ -1,0 +1,47 @@
+<section class="st" #root [class.is-static]="isStatic" aria-label="Come nasce una pizza Ohimà">
+  <div class="st-stage" #stage data-step="0">
+    <div class="st-oven" aria-hidden="true">
+      <app-embers [count]="54"/>
+    </div>
+
+    <div class="st-grid container">
+      <div class="st-top">
+        <span class="st-label">Come nasce una Ohimà</span>
+        <div class="st-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="st-art" aria-hidden="true">
+        <div class="st-dough"></div>
+
+        <div class="st-pizza">
+          <app-pizza-art class="st-main" [desc]="recipe" [seed]="seed"/>
+          <div class="st-slice-wrap">
+            <app-pizza-art class="st-slice" [desc]="recipe" [seed]="seed"/>
+          </div>
+          <p class="st-burst">Ohimà!</p>
+        </div>
+
+        <figure class="st-photo st-photo-dough"><img src="impasto.jpg" alt="" width="1200" height="1200" loading="lazy"></figure>
+        <figure class="st-photo st-photo-fire"><img src="forno.jpg" alt="" width="1199" height="867" loading="lazy"></figure>
+
+        <p class="st-temp"><small #tempLabel>forno</small><span><b #temp>20</b>°</span></p>
+      </div>
+
+      <div class="st-texts">
+        @for (s of steps; track $index; let i = $index) {
+          <article class="st-text" [attr.data-i]="i">
+            <span class="st-kicker">{{ s.kicker }}</span>
+            <h3>{{ s.title }}</h3>
+            <p>{{ s.text }}</p>
+            @if (i === 3) {
+              <a routerLink="/menu" class="btn btn-red">
+                Scegli la tua
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            }
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

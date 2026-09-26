@@ -1,200 +1,187 @@
-.navbar {
-  background-color: rgba(255, 253, 247, 0.94);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
-  position: sticky;
-  top: 0;
+/* la barra galleggia sopra la pagina: niente spazio riservato */
+:host { display: contents; }
+
+.nav {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
   z-index: 100;
+  padding-inline: var(--gutter);
+  pointer-events: none;
+  view-transition-name: nav;
 }
 
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
+.nav-pill {
+  position: relative;
+  max-width: 1180px;
+  height: 62px;
+  margin-inline: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 8px 24px;
+  gap: 10px;
+  padding: 0 8px 0 84px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 999px;
+  background: var(--mozza);
+  box-shadow: 0 5px 0 var(--ink);
+  pointer-events: auto;
+  transition: box-shadow 0.3s ease, translate 0.3s ease;
 }
 
+.nav.is-scrolled .nav-pill { box-shadow: 0 5px 0 var(--ink), 0 18px 30px -18px rgba(26, 20, 18, 0.5); }
+
+/* il logo esce dalla pillola, come un adesivo attaccato sopra */
 .nav-logo {
-  height: 64px;
-  transition: transform 0.3s var(--ease-pop, ease);
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 76px;
+  translate: 0 -50%;
+  transition: rotate 0.5s var(--spring), scale 0.5s var(--spring);
 }
 
-.logo-link:hover .nav-logo {
-  transform: rotate(-6deg) scale(1.06);
-}
+.nav-logo img { width: 100%; filter: drop-shadow(0 3px 0 var(--ink)); }
+.nav-logo:hover { rotate: -12deg; scale: 1.06; }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
+.nav-links { display: flex; gap: 4px; margin-left: auto; }
 
 .nav-links a {
-  position: relative;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--ohima-dark);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
   text-decoration: none;
-  font-size: 0.95rem;
-  padding-bottom: 6px;
+  transition: background-color 0.2s ease;
 }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--ohima-red);
-  transition: width 0.3s var(--ease-pop, ease);
-}
-
-.nav-links a:hover {
-  color: var(--ohima-red);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-links a.active-link {
-  color: var(--ohima-red);
-}
-
-.nav-links a.active-link::after {
-  width: 100%;
-}
+.nav-links a:hover { background: var(--flour); }
+.nav-links a.is-active { background: var(--ink); color: var(--mozza); }
 
 .nav-call {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 9px;
+  height: 46px;
+  margin-left: 8px;
+  padding: 0 20px;
+  border: var(--stroke) solid var(--ink);
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--ohima-red), var(--ohima-red-dark));
-  color: white !important;
-  font-size: 0.85rem !important;
-  box-shadow: var(--shadow-red);
-  transition: transform 0.3s var(--ease-pop, ease), box-shadow 0.3s var(--ease-pop, ease);
+  background: var(--tomato);
+  color: var(--mozza);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
-.nav-call::after {
-  display: none;
-}
+.nav-call:hover { background: var(--tomato-deep); }
+.nav-call svg, .nav-call-mini svg { width: 18px; height: 18px; }
 
-.nav-call:hover {
-  color: white;
-  transform: translateY(-3px);
-}
+.nav-call-mini, .nav-toggle { display: none; }
 
-.logo-link { cursor: pointer; }
+@media (max-width: 860px) {
+  .nav-pill { height: 58px; padding-left: 74px; gap: 8px; }
+  .nav-logo { width: 68px; }
+  .nav-links, .nav-call { display: none; }
 
-/* ========================================= */
-/* HAMBURGER BTN (Nascosto su PC)            */
-/* ========================================= */
-.hamburger-btn {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 100;
-}
-
-.hamburger-btn .bar {
-  width: 30px;
-  height: 3px;
-  background-color: var(--ohima-dark);
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-/* ========================================= */
-/* RESPONSIVE MOBILE - IL NUOVO MENÙ         */
-/* ========================================= */
-@media (max-width: 768px) {
-  .nav-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: relative;
-  }
-
-  .hamburger-btn {
-    display: flex;
-  }
-
-  .nav-logo {
+  .nav-call-mini,
+  .nav-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
     height: 44px;
+    border: var(--stroke) solid var(--ink);
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .nav-links {
+  .nav-call-mini { margin-left: auto; background: var(--tomato); color: var(--mozza); }
+  .nav-toggle { position: relative; padding: 0; background: var(--crust); cursor: pointer; }
+
+  .nav-toggle span {
     position: absolute;
-    top: 68px;
-    left: 0;
-    width: 100%;
-    background-color: var(--ohima-cream);
-    backdrop-filter: blur(14px);
-    flex-direction: column;
-    padding: 18px;
-    gap: 12px;
-    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
-    box-shadow: var(--shadow-soft, 0 20px 40px -20px rgba(0,0,0,0.3));
-
-    transform: translateY(-12px);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.35s var(--ease-pop, ease);
-    z-index: 90;
+    left: 11px;
+    width: 17px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--ink);
+    transition: transform 0.35s var(--ease), opacity 0.2s ease;
   }
 
-  .nav-links.mobile-open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
+  .nav-toggle span:nth-child(1) { top: 13px; }
+  .nav-toggle span:nth-child(2) { top: 19px; }
+  .nav-toggle span:nth-child(3) { top: 25px; }
 
-  .nav-links a {
-    text-align: center;
-    padding: 16px;
-    font-size: 1.05rem;
-    text-decoration: none;
-    color: var(--ohima-dark);
-    background-color: white;
-    border-radius: var(--radius-sm, 12px);
-    box-shadow: var(--shadow-soft-sm, 0 8px 18px -10px rgba(0,0,0,0.25));
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
+  .is-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .is-open .nav-toggle span:nth-child(2) { opacity: 0; }
+  .is-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+}
 
-  .nav-links a::after {
-    display: none;
-  }
+/* --- menù a tutto schermo: sei dentro il logo --- */
 
-  .nav-links a:active {
-    transform: scale(0.97);
-  }
+.mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding: calc(var(--nav-h) + 40px + env(safe-area-inset-top)) var(--gutter) calc(32px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 88% 30%, var(--mozza) 0 30px, transparent 31px),
+    radial-gradient(circle at 96% 52%, var(--mozza) 0 16px, transparent 17px),
+    radial-gradient(circle at 78% 64%, var(--mozza) 0 22px, transparent 23px),
+    var(--tomato);
+  color: var(--mozza);
+  clip-path: circle(0 at calc(100% - var(--gutter) - 30px) 40px);
+  visibility: hidden;
+  view-transition-name: mobile-menu;
+  transition: clip-path 0.65s var(--ease), visibility 0s linear 0.65s;
+}
 
-  .nav-call {
-    background: linear-gradient(135deg, var(--ohima-red), var(--ohima-red-dark)) !important;
-    box-shadow: var(--shadow-red) !important;
-  }
+.mobile.is-open {
+  clip-path: circle(160% at calc(100% - var(--gutter) - 30px) 40px);
+  visibility: visible;
+  transition: clip-path 0.65s var(--ease), visibility 0s;
+}
 
-  .hamburger-btn.open .bar:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-  }
-  .hamburger-btn.open .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger-btn.open .bar:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-  }
+.mobile-links { display: flex; flex-direction: column; gap: 6px; }
+
+.mobile-links a {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 15vw, 4.6rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mozza);
+  -webkit-text-stroke: 0.12em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0 0.07em 0 var(--ink);
+  opacity: 0;
+  translate: 0 30px;
+  rotate: -4deg;
+  transition: opacity 0.4s ease, translate 0.6s var(--spring), rotate 0.6s var(--spring);
+}
+
+.mobile.is-open .mobile-links a { opacity: 1; translate: 0 0; rotate: 0deg; }
+.mobile.is-open .mobile-links a:nth-child(2) { transition-delay: 0.07s; }
+.mobile.is-open .mobile-links a:nth-child(3) { transition-delay: 0.14s; }
+
+.mobile-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.mobile-foot p { font-size: 0.95rem; line-height: 1.5; }
+.mobile-social { display: flex; gap: 18px; font-weight: 700; }
+
+@media (min-width: 861px) {
+  .mobile { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile, .mobile.is-open, .mobile-links a { transition: none; }
 }
